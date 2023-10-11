@@ -1,5 +1,6 @@
 // Result.tsx
 
+import { Button } from '@mui/material';
 import React, { useState } from 'react';
 
 const Result: React.FC = () => {
@@ -22,12 +23,13 @@ const Result: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='p-5'>
       <h2>Search Results</h2>
       <div>
         <label>
           Roll Number:
           <input
+          className='mb-3'
             type="text"
             value={rollNumber}
             onChange={(e) => setRollNumber(e.target.value)}
@@ -38,6 +40,7 @@ const Result: React.FC = () => {
         <label>
           Course:
           <select
+          className='mb-3'
             value={course}
             onChange={(e) => setCourse(e.target.value)}
           >
@@ -49,9 +52,9 @@ const Result: React.FC = () => {
         </label>
       </div>
       <div>
-        <button onClick={handleSearch} disabled={searching}>
+        <Button variant="contained" onClick={handleSearch} disabled={searching}>
           {searching ? 'Searching...' : 'Search'}
-        </button>
+        </Button>
       </div>
       {searchResult && (
         <div>
