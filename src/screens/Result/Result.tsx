@@ -1,38 +1,33 @@
 // Result.tsx
 
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
 
-const Result = () => {
+const Result: React.FC = () => {
   const [rollNumber, setRollNumber] = useState<string>('');
   const [course, setCourse] = useState<string>('');
   const [searching, setSearching] = useState<boolean>(false);
   const [searchResult, setSearchResult] = useState<string | null>(null);
 
-  const handleSearch = async () => {
-    try {
-      setSearching(true);
+  const handleSearch = () => {
+    setSearching(true);
 
-      // Perform an API request or any search logic here
-      // For this example, we're just simulating a delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+    // Simulated search result (you can replace this with your search logic)
+    const result = `Result for Roll Number ${rollNumber}, Course: ${course}`;
 
-      // Simulated search result
-      setSearchResult(`Result for Roll Number ${rollNumber}, Course: ${course}`);
-    } catch (error) {
-      console.error('Error occurred during search:', error);
-    } finally {
+    // Simulate an API request or any search logic here
+    setTimeout(() => {
+      setSearchResult(result);
       setSearching(false);
-    }
+    }, 2000);
   };
 
   return (
-    <div className='p-5'>
+    <div>
       <h2>Search Results</h2>
       <div>
         <label>
           Roll Number:
-          <input className='mb-3'
+          <input
             type="text"
             value={rollNumber}
             onChange={(e) => setRollNumber(e.target.value)}
@@ -43,7 +38,6 @@ const Result = () => {
         <label>
           Course:
           <select
-          className='mb-3'
             value={course}
             onChange={(e) => setCourse(e.target.value)}
           >
@@ -55,9 +49,9 @@ const Result = () => {
         </label>
       </div>
       <div>
-        <Button onClick={handleSearch} disabled={searching}>
+        <button onClick={handleSearch} disabled={searching}>
           {searching ? 'Searching...' : 'Search'}
-        </Button>
+        </button>
       </div>
       {searchResult && (
         <div>
