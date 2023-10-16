@@ -30,6 +30,8 @@ import SchoolIcon from '@mui/icons-material/School';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import CourseList from './CourseList';
 import CourseForm from './CourseForm';
+import AddQuiz from './AddQuiz';
+import Quiz from '../User/Quiz';
 
 
 const drawerWidth = 240;
@@ -94,10 +96,12 @@ export default function Institute(props: Props) {
       icon: <SchoolIcon />,
     },
     {
-      name: "Course Form",
-      route: "courseform",
+      name: "Add quiz",
+      route: "addquiz",
       icon: <AppRegistrationIcon />,
     },
+
+    
    
   ]);
 
@@ -113,7 +117,7 @@ export default function Institute(props: Props) {
 
   const drawer = (
     <div>
-      <h1 style={{ fontSize: "50px", textAlign: "center" }}>Sedap</h1>
+      <h1 style={{ fontSize: "50px", textAlign: "center" }}>LMS</h1>
       {/* <Toolbar /> */}
       <List style={{
         backgroundColor: "white"
@@ -253,8 +257,11 @@ export default function Institute(props: Props) {
       >
         <Toolbar />
         <Routes>
-          <Route path="courselist" element={<CourseList/>} />
+          <Route path="courselist/" element={<CourseList/>} />
+          <Route path="courselist/:id" element={<CourseList/>} />
           <Route path="courseform" element={<CourseForm/>} />
+          <Route path="addquiz" element={<AddQuiz/>} />
+          {/* <Route path="quiz" element={<Quiz/>} /> */}
           {/* <Route path="post" element={<PostScreen />} /> */}
           {/* <Route path="singlePost/:id" element={<Singlepost />} /> */}
         </Routes>

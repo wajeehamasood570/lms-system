@@ -3,8 +3,12 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { fbAdd } from '../../config/FirebaseSetup/firebaseMethods';
+import { imgDB } from "../../config/FirebaseSetup/firebaseConfig";
+import { v4 } from 'uuid';
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+// import { addDoc, collection, getDocs } from "firebase/firestore";
 
-const InstituteForm: React.FC = () => {
+const InstituteForm = () => {
     const [formData, setFormData] = useState({
         instituteName: '',
         shortName: '',
@@ -19,7 +23,7 @@ const InstituteForm: React.FC = () => {
         userType: 'Institute',
         instituteType: '',
     });
-    const [image, setimage] = useState({});
+    const [image, setimage] = useState('');
 
 
     const handleInputChange = (
@@ -34,24 +38,27 @@ const InstituteForm: React.FC = () => {
 
 
 
+
+
     const handleLogoImageChange = (e: any) => {
-        const url = URL.createObjectURL(e?.target?.files[0]);
-        setimage({
-            name: e?.target?.files[0]?.name,
-            url: url,
-            file: e?.target?.files[0]
-    })
-        console.log(image)
-        setFormData({
-            ...formData,
-            logoImage:image,
+        console.log(e.target.files[0]);
+        const imgs = ref(imgDB, `Imgs/${v4()}`)
+        uploadBytes(imgs, e.target.files[0]).then(res => {
+            console.log(res, "imgs")
+            getDownloadURL(res.ref).then(val => {
+                setimage(val);
+                console.log(val);
+                formData.logoImage = image;
+                setFormData({ ...formData });
+            })
         })
+
     };
 
     const handleCampusDetailChange = (
         e: React.ChangeEvent<HTMLInputElement>
     ) => {
-        const updatedCampusDetails = [...formData.campusDetails];
+         const updatedCampusDetails = [...formData.campusDetails];
         updatedCampusDetails[parseInt(e.target.name)] = e.target.value;
         setFormData({
             ...formData,

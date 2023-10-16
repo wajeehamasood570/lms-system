@@ -9,9 +9,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from 'axios';
-import { Button } from '@mui/material';
+import { Box, Button, Modal, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -25,12 +26,27 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+
 
 
 const CourseList = () => {
 
     const [allCourse, setAllCourse] = useState<any>([]);
     const [loader, setLoader] = useState<any>(false);
+    const [rowData, setRowData] = useState<any>(' ');
+
 
 
 
@@ -50,6 +66,23 @@ const CourseList = () => {
     };
 
 
+    const navigate = useNavigate();
+    const addCourse = () => {
+        navigate('/institute/courseform');
+    }
+
+    const getId = (id: any) => {
+        setOpen(true);
+        console.log(id);
+        console.log(rowData);
+    }
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+
+
     useEffect(() => {
         GetCourse();
     }, []
@@ -58,6 +91,14 @@ const CourseList = () => {
     return (
         <div>
             <>
+                <Button
+                    sx={{
+                        marginBottom: "10px",
+                        marginRight: "auto"
+                    }}
+                    variant='contained' type="submit" onClick={() => addCourse()}>
+                    Add Course
+                </Button>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
                         <TableHead>
@@ -66,8 +107,9 @@ const CourseList = () => {
                                 <StyledTableCell align="center">Duration in mIns</StyledTableCell>
                                 <StyledTableCell align="center">Fee</StyledTableCell>
                                 <StyledTableCell align="center">Teacher Name</StyledTableCell>
-                                <StyledTableCell align="center">Action</StyledTableCell>
-                                <StyledTableCell align="center">Action</StyledTableCell>
+                                <StyledTableCell align="center">Edit</StyledTableCell>
+                                <StyledTableCell align="center">Remove</StyledTableCell>
+                                <StyledTableCell align="center"></StyledTableCell>
 
                             </TableRow>
                         </TableHead>
@@ -84,8 +126,27 @@ const CourseList = () => {
                                                 <StyledTableCell align="center">{x.TeacherName}</StyledTableCell>
                                                 <StyledTableCell align="center"><Button>{<EditIcon />}</Button></StyledTableCell>
                                                 <StyledTableCell align="center"><Button>{<DeleteIcon />}</Button></StyledTableCell>
+                                                <StyledTableCell align="center"><Button onClick={() => {getId(x.id); setRowData(x);}} variant='contained'>Show Details</Button></StyledTableCell>
                                                 {/* <StyledTableCell align="center">{x.body}</StyledTableCell> */}
                                             </TableBody>
+
+
+                                            {/* // Modal */}
+                                            <Modal
+                                                open={open}
+                                                onClose={handleClose}
+                                                aria-labelledby="modal-modal-title"
+                                                aria-describedby="modal-modal-description"
+                                            >
+                                                <Box sx={style}>
+                                                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                                                        Course Name:{rowData.CourseName}
+                                                    </Typography>
+                                                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                                       Teacher Name: {rowData.TeacherName}
+                                                    </Typography>
+                                                </Box>
+                                            </Modal>
                                         </>
                                     )
 

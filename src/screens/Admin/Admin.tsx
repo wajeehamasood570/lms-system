@@ -30,6 +30,7 @@ import InstituteForm from './InstituteForm';
 import InstituteList from './InstituteList';
 import SchoolIcon from '@mui/icons-material/School';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import UserRegister from './UserRegister';
 
 
 const drawerWidth = 240;
@@ -93,9 +94,14 @@ export default function Admin(props: Props) {
       route: "institutelist",
       icon: <SchoolIcon />,
     },
+    // {
+    //   name: "Institute Form",
+    //   route: "instituteform",
+    //   icon: <AppRegistrationIcon />,
+    // },
     {
-      name: "Institute Form",
-      route: "instituteform",
+      name: "User Register",
+      route: "userregister",
       icon: <AppRegistrationIcon />,
     },
    
@@ -113,7 +119,7 @@ export default function Admin(props: Props) {
 
   const drawer = (
     <div>
-      <h1 style={{ fontSize: "50px", textAlign: "center" }}>Sedap</h1>
+      <h1 style={{ fontSize: "50px", textAlign: "center" }}>LMS</h1>
       {/* <Toolbar /> */}
       <List style={{
         backgroundColor: "white"
@@ -255,6 +261,7 @@ export default function Admin(props: Props) {
         <Routes>
           <Route path="institutelist" element={<InstituteList/>} />
           <Route path="instituteform" element={<InstituteForm/>} />
+          <Route path="userregister" element={<UserRegister/>} />
           {/* <Route path="post" element={<PostScreen />} /> */}
           {/* <Route path="singlePost/:id" element={<Singlepost />} /> */}
         </Routes>

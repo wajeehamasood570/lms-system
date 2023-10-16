@@ -9,7 +9,7 @@ import Admin from '../../screens/Admin/Admin'
 import User from '../../screens/User/User'
 import Protected from '../../screens/Protected'
 import Registration from '../../screens/Registration/Registration'
-import Result from '../../screens/Result/Result'
+import Result from '../../screens/User/Result/Result'
 
 const AppRouter = () => {
   return (
@@ -21,7 +21,7 @@ const AppRouter = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/registration" element={<Registration />} />
-          <Route path="/result" element={<Result />} />
+          {/* <Route path="/result" element={<Result />} /> */}
           <Route path="/admin/*" element={<Protected Screen={Admin} />} />
           <Route path="/user/*" element={<Protected Screen={User} />} />
           <Route path="/institute/*" element={<Protected Screen={Institute} />} />
