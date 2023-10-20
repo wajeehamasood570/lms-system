@@ -21,7 +21,14 @@ const LMSelect = (props:DynamicSelectProps) => {
         onChange(newValue);
       };
   return (
-    <FormControl variant="outlined" fullWidth>
+    <FormControl variant="outlined" fullWidth
+    style={{
+      backgroundColor: "#eee",
+      borderRadius: "5px",
+      // padding: "12px 15px",
+      margin: "8px 0",
+      width: "100%",
+    }}>
       <InputLabel>{label}</InputLabel>
       <Select
         label={label}

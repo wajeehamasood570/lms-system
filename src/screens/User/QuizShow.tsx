@@ -30,6 +30,7 @@ const Quiz = () => {
           setQuiz(quizMatch);
         }
         setQuestionList([...quizMatch.questions]);
+        console.log(questionList);
 
       })
       .catch((err) => {
